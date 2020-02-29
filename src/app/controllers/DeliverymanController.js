@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import Deliveryman from '../models/Deliveryman';
-import File from '../models/File';
+import Avatar from '../models/Avatar';
 
 class DeliverymanController {
   async index(req, res) {
@@ -13,7 +13,7 @@ class DeliverymanController {
       offset: (page - 1) * 20,
       include: [
         {
-          model: File,
+          model: Avatar,
           as: 'avatar',
           attributes: ['url', 'name', 'path'],
         },

@@ -1,15 +1,15 @@
-import File from '../models/File';
+import Avatar from '../models/Avatar';
 
 class FileController {
   async store(req, res) {
     const { originalname: name, filename: path } = req.file;
 
-    const file = await File.create({
+    const avatar = await Avatar.create({
       name,
       path,
     });
 
-    return res.json(file);
+    return res.json(avatar);
   }
 }
 
