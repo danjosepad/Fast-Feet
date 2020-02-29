@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add date-fns
 
 PATH: 
-  C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;C:\Users\daniel.padilha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\daniel.padilha\AppData\Local\Programs\Git\cmd;C:\Users\daniel.padilha\AppData\Roaming\npm;C:\Users\daniel.padilha\AppData\Local\Yarn\bin;C:\Users\daniel.padilha\AppData\Local\hyper\app-3.0.2\resources\bin
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;C:\Users\daniel.padilha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\daniel.padilha\AppData\Local\Programs\Git\cmd;C:\Users\daniel.padilha\AppData\Roaming\npm;C:\Users\daniel.padilha\AppData\Local\Yarn\bin;C:\Users\daniel.padilha\AppData\Local\hyper\app-3.0.2\resources\bin
 
 Yarn version: 
   1.22.0
@@ -14,12 +14,13 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: C:\Users\daniel.padilha\Documents\Apps\FastFeet\package.json: Unexpected token { in JSON at position 723
-      at JSON.parse (<anonymous>)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
+  Error: Client network socket disconnected before secure TLS connection was established
+      at connResetException (internal/errors.js:604:14)
+      at TLSSocket.onConnectEnd (_tls_wrap.js:1513:19)
+      at Object.onceWrapper (events.js:417:28)
+      at TLSSocket.emit (events.js:323:22)
+      at endReadableNT (_stream_readable.js:1204:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
 
 npm manifest: 
   {
@@ -35,35 +36,7 @@ npm manifest:
       "bcryptjs": "^2.4.3",
       "express": "^4.17.1",
       "jsonwebtoken": "^8.5.1",
-      "pg": "^7.18.1",
-      "pg-hstore": "^2.3.3",
-      "sequelize": "^5.21.4",
-      "yup": "^0.28.1"
-    },
-    "devDependencies": {
-      "eslint": "^6.8.0",
-      "eslint-config-airbnb-base": "^14.0.0",
-      "eslint-config-prettier": "^6.10.0",
-      "eslint-plugin-import": "^2.20.1",
-      "eslint-plugin-prettier": "^3.1.2",
-      "nodemon": "^2.0.2",
-      "prettier": "^1.19.1",
-      "sequelize-cli": "^5.5.1",
-      "sucrase": "^3.12.1"
-    }
-  }{
-    "name": "modulo02",
-    "version": "1.0.0",
-    "main": "index.js",
-    "license": "MIT",
-    "scripts": {
-      "dev": "nodemon src/server.js",
-      "dev:debug": "nodemon --inspect src/server.js"
-    },
-    "dependencies": {
-      "bcryptjs": "^2.4.3",
-      "express": "^4.17.1",
-      "jsonwebtoken": "^8.5.1",
+      "mysql2": "^2.1.0",
       "sequelize": "^5.21.4",
       "yup": "^0.28.1"
     },
@@ -2422,7 +2395,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-2.3.0.tgz#64f1fe8744228172c474f530604b6133be64993d"
     integrity sha512-Ibz08vnXvkZ8LJTiUOxRcj1Ckdn7qafNZ2t59jYHMX1VIebTAOYefWdRYFt6z6+hy52WGthAHAoLc9hvk3onqA==
   
-  sequelize@^5.21.5:
+  sequelize@^5.21.4:
     version "5.21.5"
     resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-5.21.5.tgz#44056f3ab8862ccbfeebd5e03ce041c570477ea2"
     integrity sha512-n9hR5K4uQGmBGK/Y/iqewCeSFmKVsd0TRnh0tfoLoAkmXbKC4tpeK96RhKs7d+TTMtrJlgt2TNLVBaAxEwC4iw==

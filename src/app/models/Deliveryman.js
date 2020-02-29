@@ -5,12 +5,7 @@ class Recipient extends Model {
     super.init(
       {
         name: Sequelize.STRING,
-        street: Sequelize.STRING,
-        number: Sequelize.NUMBER,
-        complement: Sequelize.STRING,
-        state: Sequelize.STRING,
-        city: Sequelize.STRING,
-        postal_code: Sequelize.STRING,
+        email: Sequelize.STRING,
       },
       {
         sequelize,
@@ -18,6 +13,10 @@ class Recipient extends Model {
     );
 
     return this;
+  }
+
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 }
 export default Recipient;
