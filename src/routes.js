@@ -9,8 +9,9 @@ import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipientController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import AvatarController from './app/controllers/AvatarController';
-import OrderController from './app/controllers/OrderController';
+import DeliveryController from './app/controllers/DeliveryController';
 import DeliveryStartController from './app/controllers/DeliveryStartController';
+import DeliveryEndController from './app/controllers/DeliveryEndController';
 import auth from './app/middlewares/auth';
 
 const routes = new Router();
@@ -43,8 +44,9 @@ routes.put(
   DeliveryStartController.update
 );
 
-routes.get('/orders', OrderController.index);
-routes.post('/orders', OrderController.store);
+routes.get('/deliveries', DeliveryController.index);
+routes.post('/deliveries', DeliveryController.store);
+routes.put('/deliveries/:id', DeliveryEndController.update);
 
 routes.post('/avatars', uploadAvatar.single('file'), AvatarController.store);
 

@@ -1,16 +1,7 @@
-import {
-  startOfDay,
-  endOfDay,
-  setHours,
-  setMinutes,
-  setSeconds,
-  format,
-  isAfter,
-  isBefore,
-} from 'date-fns';
+import { setHours, setMinutes, setSeconds, isAfter, isBefore } from 'date-fns';
 
 import Deliveryman from '../models/Deliveryman';
-import Order from '../models/Order';
+import Delivery from '../models/Delivery';
 
 class DeliveryStartController {
   async update(req, res) {
@@ -40,20 +31,20 @@ class DeliveryStartController {
       return res.status(404).json({ error: 'Deliveryman not found' });
     }
 
-    const order = await Order.findByPk(req.params.orderId);
+    const delivery = await Delivery.findByPk(req.params.deliveryId);
 
-    if (!order) {
+    if (!delivery) {
       return res.status(404).json({ error: 'Order not found' });
     }
 
-    const updatedOrder = await Order.update(
+    await Delivery.update(
       {
         start_date: new Date(),
       },
       { where: { id: req.params.orderId } }
     );
 
-    return res.json(updatedOrder);
+    return res.json({ message: 'The deliveryman got the order' });
   }
 }
 

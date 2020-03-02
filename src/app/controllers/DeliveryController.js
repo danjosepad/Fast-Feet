@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import Order from '../models/Order';
+import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
 import Signature from '../models/Signature';
@@ -9,7 +9,7 @@ class OrderController {
   async index(req, res) {
     const { page = 1 } = req.query;
 
-    const orders = await Order.findAll({
+    const delivery = await Delivery.findAll({
       order: ['start_date'],
       limit: 20,
       offset: (page - 1) * 20,
@@ -31,7 +31,7 @@ class OrderController {
       ],
     });
 
-    return res.json(orders);
+    return res.json(delivery);
   }
 
   async store(req, res) {
@@ -57,11 +57,13 @@ class OrderController {
       return res.status(404).json({ error: 'Deliveryman not found' });
     }
 
-    const { id, recipient_id, deliveryman_id, product } = await Order.create({
-      recipient_id: req.body.recipient_id,
-      deliveryman_id: req.body.deliveryman_id,
-      product: req.body.product,
-    });
+    const { id, recipient_id, deliveryman_id, product } = await Delivery.create(
+      {
+        recipient_id: req.body.recipient_id,
+        deliveryman_id: req.body.deliveryman_id,
+        product: req.body.product,
+      }
+    );
 
     return res.json({
       id,
@@ -78,16 +80,16 @@ class OrderController {
   async delete(req, res) {
     // Validar se na verdade não seria CANCELAR a ORDEM
 
-    const order = await Order.findByPk(req.params.id);
+    const delivery = await Delivery.findByPk(req.params.id);
 
-    if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
+    if (!delivery) {
+      return res.status(404).json({ error: 'Delivery not found' });
     }
 
-    await order.destroy();
+    await delivery.destroy();
 
     return res.json({
-      message: 'The order has been deleted successfully',
+      message: 'The delivery has been deleted successfully',
     });
   }
 }
