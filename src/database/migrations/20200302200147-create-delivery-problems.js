@@ -7,7 +7,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      recipient_id: {
+      delivery_id: {
         type: Sequelize.INTEGER,
         references: { model: 'deliveries', key: 'id' },
         onUpdate: 'CASCADE',

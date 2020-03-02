@@ -12,6 +12,7 @@ import AvatarController from './app/controllers/AvatarController';
 import DeliveryController from './app/controllers/DeliveryController';
 import DeliveryStartController from './app/controllers/DeliveryStartController';
 import DeliveryEndController from './app/controllers/DeliveryEndController';
+import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import auth from './app/middlewares/auth';
 
 const routes = new Router();
@@ -40,13 +41,17 @@ routes.post('/deliverymans', DeliverymanController.store);
 routes.put('/deliverymans/:id', DeliverymanController.update);
 routes.delete('/deliverymans/:id', DeliverymanController.delete);
 routes.put(
-  '/deliverymans/:deliverymanId/orders/:orderId',
+  '/deliverymans/:deliverymanId/deliveries/:deliveryId',
   DeliveryStartController.update
 );
 
 routes.get('/deliveries', DeliveryController.index);
 routes.post('/deliveries', DeliveryController.store);
 routes.put('/deliveries/:id', DeliveryEndController.update);
+
+routes.get('/deliveryproblems', DeliveryProblemController.index);
+routes.get('/deliveryproblems/:id/problems', DeliveryProblemController.show);
+routes.post('/deliveryproblems/:id/problems', DeliveryProblemController.store);
 
 routes.post('/avatars', uploadAvatar.single('file'), AvatarController.store);
 
