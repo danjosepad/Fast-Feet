@@ -16,8 +16,12 @@ class App {
   middlewares() {
     this.server.use(express.json());
     this.server.use(
-      '/files',
-      express.static(resolve(__dirname, '..', 'tmp', 'uploads'))
+      '/avatars',
+      express.static(resolve(__dirname, '..', 'tmp', 'avatars'))
+    );
+    this.server.use(
+      '/signatures',
+      express.static(resolve(__dirname, '..', 'tmp', 'signatures'))
     );
   }
 

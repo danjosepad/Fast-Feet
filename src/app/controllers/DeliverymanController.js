@@ -52,13 +52,6 @@ class DeliverymanController {
     });
   }
 
-  /*
-    Essa rota valida:
-    - Se os dados passados são corretos,
-    - se o deliveryman existe (Através do id passado)
-    - Se o email passado é diferente do email que o usuário utiliza
-      - Se ele passou um email diferente, valida se algum usuário já usa aquele email
-  */
   async update(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string().email(),
@@ -92,10 +85,6 @@ class DeliverymanController {
     return res.json(delivery);
   }
 
-  /*
-    Essa rota valida:
-    - Se o id do deliveryman existe
-  */
   async delete(req, res) {
     const deliveryman = await Deliveryman.findByPk(req.params.id);
 

@@ -10,7 +10,7 @@ import RecipientController from './app/controllers/RecipientController';
 import DeliverymanController from './app/controllers/DeliverymanController';
 import AvatarController from './app/controllers/AvatarController';
 import OrderController from './app/controllers/OrderController';
-
+import DeliveryStartController from './app/controllers/DeliveryStartController';
 import auth from './app/middlewares/auth';
 
 const routes = new Router();
@@ -38,8 +38,13 @@ routes.get('/deliverymans', DeliverymanController.index);
 routes.post('/deliverymans', DeliverymanController.store);
 routes.put('/deliverymans/:id', DeliverymanController.update);
 routes.delete('/deliverymans/:id', DeliverymanController.delete);
+routes.put(
+  '/deliverymans/:deliverymanId/orders/:orderId',
+  DeliveryStartController.update
+);
 
 routes.get('/orders', OrderController.index);
+routes.post('/orders', OrderController.store);
 
 routes.post('/avatars', uploadAvatar.single('file'), AvatarController.store);
 
