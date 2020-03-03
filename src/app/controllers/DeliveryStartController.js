@@ -21,19 +21,21 @@ class DeliveryStartController {
       isAfter(new Date(), endSchedule)
     ) {
       return res
-        .status(404)
+        .status(400)
         .json({ error: 'Out of service, try again tomorrow' });
     }
 
-    const deliveryman = await Deliveryman.findByPk(req.params.deliverymanId);
+    const deliverymanExists = await Deliveryman.findByPk(
+      req.params.deliverymanId
+    );
 
-    if (!deliveryman) {
+    if (!deliverymanExists) {
       return res.status(404).json({ error: 'Deliveryman not found' });
     }
 
-    const delivery = await Delivery.findByPk(req.params.deliveryId);
+    const deliveryExists = await Delivery.findByPk(req.params.deliveryId);
 
-    if (!delivery) {
+    if (!deliveryExists) {
       return res.status(404).json({ error: 'Order not found' });
     }
 
@@ -41,7 +43,7 @@ class DeliveryStartController {
       {
         start_date: new Date(),
       },
-      { where: { id: req.params.orderId } }
+      { where: { id: req.params.deliveryId } }
     );
 
     return res.json({ message: 'The deliveryman got the order' });
