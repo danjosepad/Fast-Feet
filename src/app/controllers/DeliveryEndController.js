@@ -2,6 +2,7 @@ import Delivery from '../models/Delivery';
 
 class DeliveryEndController {
   async update(req, res) {
+    // Envio de uma imagem para assinatura de usuário
     const { id } = req.params;
 
     if (!id) {
