@@ -5,6 +5,9 @@ import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
 import Signature from '../models/Signature';
 
+import CreateDeliveryMail from '../jobs/CreateDeliveryMail';
+import Queue from '../../lib/Queue';
+
 class OrderController {
   async index(req, res) {
     const { page = 1 } = req.query;
@@ -57,20 +60,19 @@ class OrderController {
       return res.status(404).json({ error: 'Deliveryman not found' });
     }
 
-    const { id, recipient_id, deliveryman_id, product } = await Delivery.create(
-      {
-        recipient_id: req.body.recipient_id,
-        deliveryman_id: req.body.deliveryman_id,
-        product: req.body.product,
-      }
-    );
-
-    return res.json({
-      id,
-      recipient_id,
-      deliveryman_id,
-      product,
+    const delivery = await Delivery.create({
+      recipient_id: req.body.recipient_id,
+      deliveryman_id: req.body.deliveryman_id,
+      product: req.body.product,
     });
+
+    await Queue.add(CreateDeliveryMail.key, {
+      delivery,
+      recipient,
+      deliveryman,
+    });
+
+    return res.json(delivery);
   }
 
   async update(req, res) {

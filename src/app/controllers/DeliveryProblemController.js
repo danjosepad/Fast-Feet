@@ -1,9 +1,13 @@
 import * as Yup from 'yup';
 
+import { format, parseISO } from 'date-fns';
 import DeliveryProblem from '../models/DeliveryProblem';
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
+
+import CancellationDelivery from '../jobs/CancellationDelivery';
+import Queue from '../../lib/Queue';
 
 class DeliveryProblemController {
   async index(req, res) {
@@ -94,13 +98,50 @@ class DeliveryProblemController {
   }
 
   async delete(req, res) {
-    const delivery = await Delivery.findByPk(req.params.id);
+    const deliveryProblem = await DeliveryProblem.findByPk(req.params.id, {
+      include: [
+        {
+          model: Delivery,
+          as: 'delivery',
+          attributes: [
+            'deliveryman_id',
+            'recipient_id',
+            'start_date',
+            'canceled_at',
+            'product',
+          ],
+          include: [
+            {
+              model: Deliveryman,
+              as: 'deliveryman',
+            },
+            {
+              model: Recipient,
+              as: 'recipient',
+            },
+          ],
+        },
+      ],
+    });
 
-    if (!delivery) {
-      return res.status(404).json({ error: 'Delivery not found' });
+    if (!deliveryProblem) {
+      return res.status(404).json({ error: 'Delivery Problem not found' });
     }
 
-    return res.json();
+    await deliveryProblem.update(
+      {
+        canceled_date: new Date(),
+      },
+      { where: { id: req.params.id } }
+    );
+
+    deliveryProblem.delivery.canceled_at = new Date();
+
+    await Queue.add(CancellationDelivery.key, {
+      deliveryProblem,
+    });
+
+    return res.json({ message: 'The delivery has been successfully canceled' });
   }
 }
 
