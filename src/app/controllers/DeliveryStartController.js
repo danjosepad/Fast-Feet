@@ -55,21 +55,6 @@ class DeliveryStartController {
       });
     }
 
-    /*
-    const deliverymanExists = await Deliveryman.findByPk(
-      req.params.deliverymanId
-    );
-
-    if (!deliverymanExists) {
-      return res.status(404).json({ error: 'Deliveryman not found' });
-    }
-
-    const deliveryExists = await Delivery.findByPk(req.params.deliveryId);
-
-    if (!deliveryExists) {
-      return res.status(404).json({ error: 'Order not found' });
-    }
-    */
     const deliveryDeliverymanExists = await Delivery.findOne({
       where: {
         id: req.params.deliveryId,
@@ -91,8 +76,6 @@ class DeliveryStartController {
     );
 
     return res.json({ message: 'The deliveryman got the order' });
-
-    // Validar rota para que o deliveryman possa realizar apenas 5 entregas por dia
   }
 }
 

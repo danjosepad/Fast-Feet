@@ -13,6 +13,8 @@ import DeliveryController from './app/controllers/DeliveryController';
 import DeliveryStartController from './app/controllers/DeliveryStartController';
 import DeliveryEndController from './app/controllers/DeliveryEndController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
+import DeliveriesController from './app/controllers/DeliveriesController';
+
 import auth from './app/middlewares/auth';
 
 const routes = new Router();
@@ -37,21 +39,22 @@ routes.post('/recipients', RecipientController.store);
 routes.put('/recipients', RecipientController.update);
 
 routes.get('/deliverymans', DeliverymanController.index);
-routes.post('/deliverymans', DeliverymanController.store);
-routes.put('/deliverymans/:id', DeliverymanController.update);
-routes.delete('/deliverymans/:id', DeliverymanController.delete);
+routes.get('/deliveryman/:id/deliveries', DeliveriesController.index);
+routes.post('/deliveryman', DeliverymanController.store);
+routes.put('/deliveryman/:id', DeliverymanController.update);
+routes.delete('/deliveryman/:id', DeliverymanController.delete);
 routes.put(
-  '/deliverymans/:deliverymanId/deliveries/:deliveryId',
+  '/deliveryman/:deliverymanId/delivery/:deliveryId',
   DeliveryStartController.update
 );
 
 routes.get('/deliveries', DeliveryController.index);
-routes.post('/deliveries', DeliveryController.store);
-routes.put('/deliveries/:id', DeliveryEndController.update);
+routes.post('/delivery', DeliveryController.store);
+routes.put('/delivery/:id', DeliveryEndController.update);
 
 routes.get('/deliveryproblems', DeliveryProblemController.index);
-routes.get('/deliveryproblems/:id/problems', DeliveryProblemController.show);
-routes.post('/deliveryproblems/:id/problems', DeliveryProblemController.store);
+routes.get('/delivery/:id/problems', DeliveryProblemController.show);
+routes.post('/delivery/:id/problems', DeliveryProblemController.store);
 
 routes.post('/avatars', uploadAvatar.single('file'), AvatarController.store);
 
